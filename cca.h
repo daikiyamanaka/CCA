@@ -13,7 +13,7 @@ private:
 	cv::Mat calc_center(cv::Mat &X); // calc col_wise center of mass
 	void centration(cv::Mat &X);
 	cv::Mat X, Y;
-	cv::Mat A, B;
+	cv::Mat A, B, S;
 	cv::Mat Sxx, Sxy, Syx, Syy;
 	int num_of_data;
 	/* data */

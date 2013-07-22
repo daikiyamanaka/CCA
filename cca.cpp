@@ -30,11 +30,20 @@ void CCA::calc(){
 	cv::SVD svdb(Sb);
 
 	A = svda.u;	
+	std::cout << A.rows << " " << A.cols << std::endl;	
 	B = svdb.u;		
+	std::cout << B.rows << " " << B.cols << std::endl;	
+	cv::Mat diag = svda.w;
+	S = cv::Mat::zeros(A.rows, A.cols, A.type());//svda.w;
+	for(int i=0; i<diag.rows; i++){
+		S.at<float>(i, i) = diag.at<float>(i, 0);
+	}
+	std::cout << S.rows << " " << S.cols << std::endl;
 }
 
 cv::Mat CCA::predict(cv::Mat x){
-	return A.t()*x*B.inv();
+	//return A.t()*x*B.inv();
+	return B.inv()*S*A.t()*x;
 }
 
 cv::Mat CCA::calc_center(cv::Mat &X){
